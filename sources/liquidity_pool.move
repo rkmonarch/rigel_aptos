@@ -7,13 +7,12 @@ module rigel::liquidity_pool {
     use aptos_framework::timestamp;
 
     struct UserPools has key {
-        pool: LiquidityPool,
-        total_deposit: u64
+        pool_address: address,
+        total_deposit: u64,
+
     }
 
     struct LiquidityPool<phantom X> has key, store {
-        pool_id: u64,
-        pool_manager: address,
         deposit_token: Coin<X>,
         fee: u64
     }
