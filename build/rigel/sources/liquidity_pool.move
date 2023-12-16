@@ -49,8 +49,20 @@ module rigel::liquidity_pool {
         move_to(&pool_signer_from_cap, LiquidityPool{resource_cap: liquidity_pool_cap, coin_type: coin_address, fee: fee});
     }
 
+    // public fun get_pool_details<X>(acc: &signer):LiquidityPool<X> acquires LiquidityPool {
+        // let pool = borrow_global<LiquidityPool<X>>(@rigel);
+        // let pool_details = LiquidityPool<X> {
+        //     deposit_token: pool.deposit_token,
+        //     fee: pool.fee,
+        // };
+        // pool_details
+    // }
 
-    public fun deposit(acc:&signer, poolAddress: address, amount:u64) {}
+    public fun deposit(acc:&signer, poolAddress: address, amount:u64) {
+        // let signer_address = signer::address_of(acc);
+        // let pool = borrow_global<LiquidityPool>(poolAddress);
+        // let balance = Coin::balance_of(signer_address);
+    }
 
     public fun withdraw() {}
 

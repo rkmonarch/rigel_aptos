@@ -3,8 +3,7 @@ name = "rigel"
 version = "1.0.0"
 authors = []
 
-[addresses]
-rigel = "0x123"
+
 
 [dev-addresses]
 
@@ -12,9 +11,6 @@ rigel = "0x123"
 git = "https://github.com/aptos-labs/aptos-core.git"
 rev = "mainnet"
 subdir = "aptos-move/framework/aptos-framework"
-
-[dependencies.Rigel]
-local = ".."
 
 [dev-dependencies]
 
