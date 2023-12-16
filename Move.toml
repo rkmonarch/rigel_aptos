@@ -4,6 +4,7 @@ version = "1.0.0"
 authors = []
 
 [addresses]
+rigel = "0x123"
 
 [dev-addresses]
 
