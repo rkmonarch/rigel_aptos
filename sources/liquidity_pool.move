@@ -14,7 +14,11 @@ module rigel::liquidity_pool {
         pool_address: address,
         total_deposit: u64,
     }
-
+ 
+    struct UserPool has store {
+        pools: vector<UserPools>
+    }
+    
     struct LiquidityPool has key, store {
         resource_cap: account::SignerCapability,
         coin_type: address,
