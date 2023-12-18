@@ -4,7 +4,7 @@ version = "1.0.0"
 authors = []
 
 [addresses]
-rigel = "0x3bb1341760719b5ade7d9b32b3deb3e5dc1a4f1045ea4eadc8ba169a22224049"
+rigel = "0xaccfff672e2d7fd753d675a891e3110b1c4977eb00156a9bf675ca8d6ed2fe22"
 
 [dev-addresses]
 
