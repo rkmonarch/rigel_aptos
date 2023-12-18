@@ -4,28 +4,28 @@ module rigel::liquidity_pool {
     use aptos_std::event;
     use aptos_framework::account::{Self, SignerCapability};
     use aptos_framework::timestamp;
-
+    use std::vector;
     use aptos_framework::managed_coin;
     use aptos_framework::coin;
     use aptos_std::type_info;
     use aptos_std::simple_map::{Self, SimpleMap};
 
-    struct UserPools has key {
+    struct UserPool has store, drop {
         pool_address: address,
         total_deposit: u64,
     }
  
-    struct UserPool has store {
-        pools: vector<UserPools>
+    struct UserPools has key, store {
+        pools: vector<UserPool>
     }
-    
+
     struct LiquidityPool has key, store {
         resource_cap: account::SignerCapability,
         coin_type: address,
         fee: u64
     }
 
-    struct LiquidityPoolCap  has key {
+    struct LiquidityPoolCap has key {
         liquidity_pool_map: SimpleMap< vector<u8>,address>,
     }
 
@@ -39,6 +39,7 @@ module rigel::liquidity_pool {
         let account_addr = signer::address_of(account);
         let (liquidity_pool, liquidity_pool_cap) = account::create_resource_account(account, seeds); //resource account
         let liquidity_pool_address = signer::address_of(&liquidity_pool);
+
         if (!exists<LiquidityPoolCap>(account_addr)) {
             move_to(account, LiquidityPoolCap {liquidity_pool_map: simple_map::create()})
         };
@@ -54,24 +55,53 @@ module rigel::liquidity_pool {
     }
 
 
-    public fun deposit<CoinType>(account: &signer, pool_address: address, amount: u64) acquires UserPools {
+    public entry fun deposit<CoinType>(account: &signer, pool_address: address, amount: u64) acquires UserPools {
         let signer_address = signer::address_of(account);
 
+        
         if(!exists<UserPools>(signer_address))
         {
-            let pool = UserPools {
+           managed_coin::register<CoinType>(account);    
+            let pool = UserPool {
                pool_address,
                total_deposit: amount
-            };
-            move_to(account,pool);
-        } else {
+            };          
+            let pools = vector[];
+            vector::push_back(&mut pools, pool);            
+            move_to<UserPools>(account, UserPools{pools});
+        } 
+        else {
             let pool = borrow_global_mut<UserPools>(signer_address); 
-            pool.total_deposit = amount;
+            let count = 0;
+            let pool_length = vector::length(&pool.pools);
+            while(count < pool_length) {
+                let pool = vector::borrow_mut(&mut pool.pools, count);
+                if(pool.pool_address == pool_address) {
+                    pool.total_deposit = pool.total_deposit + amount;
+                    break
+                };   
+                count = count + 1;
+            }           
         };
         coin::transfer<CoinType>(account, pool_address, amount);
     }
 
-    public fun withdraw() {}
+    public entry fun withdraw<CoinType>(pool_signer:&signer, account: address, amount: u64) acquires UserPools {
+        let signer_address = signer::address_of(pool_signer);
+        let pool = borrow_global_mut<UserPools>(signer_address); 
+            let count = 0;
+            let pool_length =  vector::length(&pool.pools);
+            while(count < pool_length) {
+                let pool = vector::borrow_mut(&mut pool.pools, count);
+                if(pool.pool_address == signer_address) {
+                    pool.total_deposit = pool.total_deposit - amount;
+                    break
+                };
+                count = count + 1;
+            };  
+                 
+        coin::transfer<CoinType>(pool_signer, account, amount);
+    }
 
     public fun open_position_vault() {}
 
