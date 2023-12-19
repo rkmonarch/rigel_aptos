@@ -1,0 +1,18 @@
+[package]
+name = 'ThalaLSD'
+version = '1.0.0'
+
+[addresses]
+thala_lsd = "0ebb91f1b0d422aa0820de017e9b54a796167dc500ad4324f389e55856c63aaa"
+thala_lsd_deployer = "0xe3b24efa4d2b51553a9cbd06d56dc56d47661430b4da83ccceaf5d1def3fa516"
+
+[dependencies.AptosFramework]
+git = 'https://github.com/aptos-labs/aptos-core.git'
+rev = 'mainnet'
+subdir = 'aptos-move/framework/aptos-framework'
+
+#[dependencies.ThalaManager]
+#local = "../thala_manager/"
+
+[dev-dependencies.TestUtils]
+local = "../test_utils"

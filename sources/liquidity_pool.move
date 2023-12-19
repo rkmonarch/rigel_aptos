@@ -1,14 +1,13 @@
 module rigel::liquidity_pool {
 
     use std::signer;
-    use aptos_std::event;
-    use aptos_framework::account::{Self, SignerCapability};
-    use aptos_framework::timestamp;
+    use aptos_framework::account;
     use std::vector;
     use aptos_framework::managed_coin;
     use aptos_framework::coin;
     use aptos_std::type_info;
     use aptos_std::simple_map::{Self, SimpleMap};
+    use thala_lsd::scripts;
 
     struct UserPool has store, drop {
         pool_address: address,
@@ -76,8 +75,6 @@ module rigel::liquidity_pool {
         });
         managed_coin::register<CoinType>(&pool_signer_from_cap); 
 
-        // move_to(&pool_signer_from_cap, LiquidityPool{resource_cap: liquidity_pool_cap, coin_type: coin_address, fee: fee});
-
     }
 
 
@@ -130,8 +127,22 @@ module rigel::liquidity_pool {
         coin::transfer<CoinType>(&pool_signer_from_cap, account, amount);
     }
 
-    public fun open_position_vault() {}
+    public fun stake_APT_thala(pool_address: address, amount: u64) acquires LiquidityPoolCap {
+        let pool = borrow_global_mut<LiquidityPoolCap>(pool_address);
+        let pool_signer_from_cap = account::create_signer_with_capability(&pool.liquidity_pool_cap);
+        scripts::stake_APT(&pool_signer_from_cap, amount);
+    }
 
-    public fun close_position_vault() {}
+    public fun request_unstake_APT_thala(pool_address: address, amount: u64) acquires LiquidityPoolCap {
+        let pool = borrow_global_mut<LiquidityPoolCap>(pool_address);
+        let pool_signer_from_cap = account::create_signer_with_capability(&pool.liquidity_pool_cap);
+        scripts::request_unstake_APT(&pool_signer_from_cap, amount);
+    }
+
+    public fun complete_unstake_APT_thala(pool_address: address, request_id: u64) acquires LiquidityPoolCap {
+        let pool = borrow_global_mut<LiquidityPoolCap>(pool_address);
+        let pool_signer_from_cap = account::create_signer_with_capability(&pool.liquidity_pool_cap);
+        scripts::complete_unstake_APT(&pool_signer_from_cap, request_id);
+    }
 
 }
