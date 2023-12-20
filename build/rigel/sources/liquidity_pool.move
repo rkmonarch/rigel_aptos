@@ -127,19 +127,19 @@ module rigel::liquidity_pool {
         coin::transfer<CoinType>(&pool_signer_from_cap, account, amount);
     }
 
-    public fun stake_APT_thala(pool_address: address, amount: u64) acquires LiquidityPoolCap {
+    public entry fun stake_APT_thala(pool_address: address, amount: u64) acquires LiquidityPoolCap {
         let pool = borrow_global_mut<LiquidityPoolCap>(pool_address);
         let pool_signer_from_cap = account::create_signer_with_capability(&pool.liquidity_pool_cap);
         scripts::stake_APT(&pool_signer_from_cap, amount);
     }
 
-    public fun request_unstake_APT_thala(pool_address: address, amount: u64) acquires LiquidityPoolCap {
+    public entry fun request_unstake_APT_thala(pool_address: address, amount: u64) acquires LiquidityPoolCap {
         let pool = borrow_global_mut<LiquidityPoolCap>(pool_address);
         let pool_signer_from_cap = account::create_signer_with_capability(&pool.liquidity_pool_cap);
         scripts::request_unstake_APT(&pool_signer_from_cap, amount);
     }
 
-    public fun complete_unstake_APT_thala(pool_address: address, request_id: u64) acquires LiquidityPoolCap {
+    public entry fun complete_unstake_APT_thala(pool_address: address, request_id: u64) acquires LiquidityPoolCap {
         let pool = borrow_global_mut<LiquidityPoolCap>(pool_address);
         let pool_signer_from_cap = account::create_signer_with_capability(&pool.liquidity_pool_cap);
         scripts::complete_unstake_APT(&pool_signer_from_cap, request_id);
