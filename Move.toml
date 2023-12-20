@@ -5,6 +5,7 @@ authors = []
 
 [addresses]
 rigel = "1e439e8919738ac6a154ba5a0fbca190945d061e66bb2be331c2a61996f09101"
+amnis = "0xb8188ed9a1b56a11344aab853f708ead152484081c3b5ec081c38646500c42d7"
 
 [dev-addresses]
 
@@ -15,6 +16,9 @@ subdir = "aptos-move/framework/aptos-framework"
 
 [dependencies.ThalaLSD]
 local = "./ThalaLSD"
+
+[dependencies.amnis]
+local = "./amnis"
 
 [dev-dependencies]
 
