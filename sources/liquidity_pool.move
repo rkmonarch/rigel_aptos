@@ -155,6 +155,7 @@ module rigel::liquidity_pool {
     public entry fun request_unstake_APT_amnis(pool_address: address, amount: u64) acquires LiquidityPoolCap {
         let pool = borrow_global_mut<LiquidityPoolCap>(pool_address);
         let pool_signer_from_cap = account::create_signer_with_capability(&pool.liquidity_pool_cap);
+        router::unstake_entry(amount, &pool_signer_from_cap);
     }
 
     public entry fun complete_unstake_APT_amnis(pool_address: address, request_id: u64) acquires LiquidityPoolCap {
