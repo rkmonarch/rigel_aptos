@@ -2,6 +2,7 @@
 compiled_package_info:
   package_name: rigel
   address_alias_instantiation:
+    Aptoswap: a5d3ac4d429052674ed38adc62d010e52d7c24ca159194d17ddc196ddb7e480b
     Extensions: "0000000000000000000000000000000000000000000000000000000000000001"
     aptos_framework: "0000000000000000000000000000000000000000000000000000000000000001"
     aptos_std: "0000000000000000000000000000000000000000000000000000000000000001"
@@ -12,7 +13,7 @@ compiled_package_info:
     thala_lsd: 0ebb91f1b0d422aa0820de017e9b54a796167dc500ad4324f389e55856c63aaa
     thala_lsd_deployer: e3b24efa4d2b51553a9cbd06d56dc56d47661430b4da83ccceaf5d1def3fa516
     vm_reserved: "0000000000000000000000000000000000000000000000000000000000000000"
-  source_digest: B92FD0590605890667F47000548B4F2E7C81F3F35732719520B4ABF41D82AB91
+  source_digest: 32C6805E45D976ED96BD12E997B0A2576203DA1C6B9F25FEE949F512600E3B30
   build_flags:
     dev_mode: false
     test_mode: false
@@ -46,5 +47,6 @@ compiled_package_info:
 dependencies:
   - AptosFramework
   - AptosStdlib
+  - Aptoswap
   - MoveStdlib
   - ThalaLSD
