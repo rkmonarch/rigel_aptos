@@ -5,11 +5,7 @@ version = '1.0.0'
 [addresses]
 admin = "0xb6c95af7bf51dfa554f332f9b9c9775ed18a73566548b0b5b2bcf06e7eefe2ff"
 amnis = "0xb8188ed9a1b56a11344aab853f708ead152484081c3b5ec081c38646500c42d7"
-deployer = "0xb6c95af7bf51dfa554f332f9b9c9775ed18a73566548b0b5b2bcf06e7eefe2ff"
-
-# [dependencies]
-# AptosFramework = { local = "../../framework/aptos-framework" }
-# AptosTokenObjects = { local = "../../framework/aptos-token-objects" }
+deployer = "0xb8188ed9a1b56a11344aab853f708ead152484081c3b5ec081c38646500c42d7"
 
 [dependencies.AptosFramework]
 git = "https://github.com/aptos-labs/aptos-core.git"
@@ -20,3 +16,4 @@ subdir = "aptos-move/framework/aptos-framework"
 git = "https://github.com/aptos-labs/aptos-core.git"
 rev = "mainnet"
 subdir = "aptos-move/framework/aptos-token-objects"
+

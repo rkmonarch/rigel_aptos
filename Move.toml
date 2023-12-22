@@ -16,8 +16,8 @@ subdir = "aptos-move/framework/aptos-framework"
 [dependencies.ThalaLSD]
 local = "./ThalaLSD"
 
-[dependencies.Aptoswap]
-local = "./Aptoswap"
+[dependencies.amnis]
+local = "./amnis"
 
 [dev-dependencies]
 

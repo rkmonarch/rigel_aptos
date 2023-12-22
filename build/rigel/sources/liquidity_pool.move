@@ -8,7 +8,7 @@ module rigel::liquidity_pool {
     use aptos_std::type_info;
     use aptos_std::simple_map::{Self, SimpleMap};
     use thala_lsd::scripts;
-    // use amnis::router;
+    use amnis::router;
 
     struct UserPool has store, drop {
         pool_address: address,
@@ -149,13 +149,13 @@ module rigel::liquidity_pool {
     public entry fun stake_APT_amnis(pool_address: address, amount: u64) acquires LiquidityPoolCap {
         let pool = borrow_global_mut<LiquidityPoolCap>(pool_address);
         let pool_signer_from_cap = account::create_signer_with_capability(&pool.liquidity_pool_cap);
-        // router::deposit_and_stake_entry(amount, &pool_signer_from_cap);
+        router::deposit_and_stake_entry( &pool_signer_from_cap, amount, pool_address);
     }
 
     public entry fun request_unstake_APT_amnis(pool_address: address, amount: u64) acquires LiquidityPoolCap {
         let pool = borrow_global_mut<LiquidityPoolCap>(pool_address);
         let pool_signer_from_cap = account::create_signer_with_capability(&pool.liquidity_pool_cap);
-        // router::unstake_entry(amount, &pool_signer_from_cap);
+        router::unstake_entry( &pool_signer_from_cap, amount, pool_address);
     }
 
     public entry fun complete_unstake_APT_amnis(pool_address: address, request_id: u64) acquires LiquidityPoolCap {
